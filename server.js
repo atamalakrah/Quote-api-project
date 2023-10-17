@@ -35,4 +35,19 @@ app.get('/api/quotes', (req, res, next) => {
     }
 });
 
+//Request to add a new quote/person object
+app.post('/api/quotes', (req, res, next) => {
+    const personParam = req.query.person;
+    const quoteParam = req.query.quote;
+    if(!personParam || !quoteParam){
+        res.status(400).send();
+    }
+    else{
+        quotes.push(req.query);
+        const jsonNewQuote = JSON.stringify({quote: req.query});
+        console.log(jsonNewQuote);
+        res.send(jsonNewQuote);
+    }
+});
+
 app.listen(4001, () => console.log("Simple server running on http://localhost:4001"))
